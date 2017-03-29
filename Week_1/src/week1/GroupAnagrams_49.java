@@ -14,7 +14,7 @@ public class GroupAnagrams_49 {
         for(String str:strs){
         	char[] word=str.toCharArray();
         	Arrays.sort(word);
-        	String tmp=String.valueOf(word);		// cannot use word.toString(); why?
+        	String tmp=String.valueOf(word);		//  word.toString() is wrong!!
         	if(!map.containsKey(tmp)) map.put(tmp, new ArrayList<String>());
         	map.get(tmp).add(str);
         }
