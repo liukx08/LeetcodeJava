@@ -104,4 +104,52 @@ public class RecursionMethods {
 		postorderTraversal(root.right,list);	//	recursion right subtree
 		list.add(root.val);					// "combine", process current level
 	}
+	
+	public TreeNode inorderSuccessor(TreeNode root,TreeNode p){
+		if(root==null||p==null)return null; // base case			
+		if(root.val>p.val){
+			TreeNode left=inorderSuccessor(root.left,p);	// if p val < root val => recursion on left subtree
+			return left==null?root:left;		// recursion may return null (when root is the successor)
+		}
+		else return inorderSuccessor(root.right,p);		// if p val >= root val => recursion on right subtree
+	}
+	
+	public int kthSmallest(TreeNode root, int k){
+		int[] count=new int[]{k};
+		int[] result=new int[]{-1};
+		inorderTraversal(root,count,result);	// use a inorderTraversal to find kth smallest
+		return result[0];
+	}
+	
+	private void inorderTraversal(TreeNode root,int[] count,int[] result){
+		if(root==null)return;		// base case
+		inorderTraversal(root.left,count,result);	// recursion on left subtree
+		count[0]--;					// process current level
+		if(count[0]==0){
+			result[0]=root.val;
+			return;
+		}
+		inorderTraversal(root.right,count,result);  // recursion on right subtree
+	}  // to find kth largest, code traversal on right subtree first
+	
+	public boolean isSymmetric(TreeNode root){
+		if(root==null)return true;
+		return isSymmetric(root.left,root.right);
+	}
+	
+	private boolean isSymmetric(TreeNode left,TreeNode right){
+		if(left==null||right==null)return left==null&&right==null?true:false; // base case
+		if(left.val==right.val)return isSymmetric(left.left,right.right)&&isSymmetric(left.right,right.left);  // process current level and recursion on next level
+		return false;
+	}
+	
+	public TreeNode invertTree(TreeNode root){
+		if(root==null)return root;
+		TreeNode tmp=root.left;
+		root.left=root.right;
+		root.right=tmp;
+		invertTree(root.left);
+		invertTree(root.right);
+		return root;
+	}
 }

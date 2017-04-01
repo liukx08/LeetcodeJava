@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.ArrayDeque;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class IterationMethods {
 	public ListNode reverseList(ListNode head){
@@ -111,5 +112,58 @@ public class IterationMethods {
 			if(curr.right!=null)stack.offerFirst(curr.right);		// push right node into stack
 		}
 		return res;
+	}
+	
+	public TreeNode inorderSuccessor(TreeNode root,TreeNode p){
+		TreeNode successor=null;
+		if(p==null)return successor;
+		TreeNode curr=root;
+		while(curr!=null){
+			if(curr.val>p.val){	// if target val < current val => current is successor or successor is in the left of current node
+				successor=curr;
+				curr=curr.left;
+			} else {			// if target val >= current val => successor must be in the right of current node
+				curr=curr.right;
+			}
+		}
+		return successor;
+	}
+	
+	public int kthSmallest(TreeNode root, int k){
+		if(root==null)return -1;
+		Deque<TreeNode> stack=new ArrayDeque<TreeNode>();	// in-order traversal
+		TreeNode curr=root;
+		while(!stack.isEmpty()||curr!=null){
+			if(curr!=null){
+				stack.offerFirst(curr);
+				curr=curr.left;
+			}
+			else {
+				TreeNode tmp=stack.pollFirst();
+				k--;							// count
+				if(k==0)return tmp.val;
+				if(tmp.right!=null)stack.offerFirst(tmp.right);
+			}
+		}
+		return -1;
+	}
+	
+	public boolean isSymmetric(TreeNode root){		// BFS traversal
+		if(root==null)return true;
+		Queue<TreeNode> queue=new LinkedList<TreeNode>();
+		queue.offer(root.left);
+		queue.offer(root.right);
+		while(!queue.isEmpty()){
+			TreeNode left=queue.poll();
+			TreeNode right=queue.poll();
+			if(left==null&&right==null)continue;
+			if(left==null||right==null)return false;
+			if(left.val!=right.val)return false;
+			queue.offer(left.left);
+			queue.offer(right.right);
+			queue.offer(left.right);
+			queue.offer(right.left);
+		}
+		return true;
 	}
 }
