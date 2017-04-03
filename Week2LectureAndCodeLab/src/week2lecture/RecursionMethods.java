@@ -66,14 +66,14 @@ public class RecursionMethods {
 	
 	private TreeNode helper(TreeNode root,TreeNode[] p,int[] count){
 		if(root==null)return null;	// base case
+		TreeNode left=helper(root.left,p,count);  // recursion
+		TreeNode right=helper(root.right,p,count);	// recursion
 		for(TreeNode tmp:p){				
 			if(root==tmp){
 				count[0]++;
 				return root;
 			}
-		}								// base case
-		TreeNode left=helper(root.left,p,count);  // recursion
-		TreeNode right=helper(root.right,p,count);	// recursion
+		}								// base case 
 		if(left==null||right==null)return left==null?right:left;	// combine
 		else return root;			
 	}
