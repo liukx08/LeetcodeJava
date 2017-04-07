@@ -21,12 +21,4 @@ public class BubbleSort {
         nums[j]=tmp;
     }
 
-    public void test(){
-        int[] nums=new int[]{3,5,1,7,2,8,4,6};
-        for (int num1 : nums) System.out.print(num1);
-        System.out.println("");
-        nums=bubbleSort(nums);
-        for (int num : nums) System.out.print(num);
-        System.out.println("");
-    }
 }
