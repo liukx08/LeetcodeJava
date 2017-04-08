@@ -8,7 +8,7 @@ public class InsertionSort {
         for(int i=0;i<nums.length;i++){
             int j=0;
             int tmp=nums[i];
-            while(nums[j]<nums[i])j++;
+            while(nums[j]<=nums[i])j++;
             System.arraycopy(nums, j, nums,j+1,i-j);
             nums[j]=tmp;
         }
