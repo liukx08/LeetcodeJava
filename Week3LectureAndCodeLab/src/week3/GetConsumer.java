@@ -13,10 +13,8 @@ public class GetConsumer implements Runnable {
     }
 
     public void run() {
-        int i = quantity;
-        while(i > 0) {
+        for(int i = quantity; i > 0; i--) {
             System.out.println("GET: " + Thread.currentThread().getName() + " " + bucket.getToken().toString());
-            i--;
         }
     }
 }
