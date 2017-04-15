@@ -9,7 +9,7 @@ import java.util.List;
 public class RunLockBucket {
     public static void main(String[] args) {
         // Make a bucket
-        LockBucket myBucket = new LockBucket(4, 100, 1000);
+        LockBucket myBucket = new LockBucket(4, 100, 15000);
         // Employ a worker. Good job! Kevin!
         Producer proKevin = new Producer(10, myBucket);
         // Here comes our consumer Tom. Welcome!
