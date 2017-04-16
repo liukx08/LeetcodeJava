@@ -5,7 +5,7 @@ import java.util.Arrays;
  */
 public class CoinChange_322 {
     // DP
-    public int coinChange(int[] coins, int amount) {
+    public int coinChangeDP(int[] coins, int amount) {
         if(coins == null || coins.length == 0) {
             return -1;
         }
