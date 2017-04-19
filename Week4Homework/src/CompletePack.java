@@ -4,8 +4,8 @@ import java.util.Arrays;
  * Created by liukx08 on 4/18/2017.
  *
  *      01 pack problem follow-up: what if item can be duplicated
- *      like coin change problem
- *      induction: f(V) = max(f(V-volume[n]) + value[n], f(N, V))
+ *      induction: f(V) = max(f(N-1, V-k*volume[n]) + k*value[n] | k = 0, 1, ..., V/volume[n])
+ *      Just update row from volume[n] to V.
  */
 public class CompletePack {
     // case 1: exactly full
