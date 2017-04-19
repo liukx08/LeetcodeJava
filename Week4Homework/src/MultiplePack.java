@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by liukx08 on 4/19/2017.
  *
@@ -13,6 +15,20 @@
  *      1. the total amount is amount[i].
  *      2. each number among 1 ~ amount[i] can be reproduced with the above items set
  *      (binary count)
+ *
+ *      follow-up 2: feasibility problem, O(VN) solution
+ *      f(N, V) represents the most amount of item N left after previous N type of items filling the pack,
+ *      0 <= f <= amount[N], -1 means no solution       1. initialization: if(f(i-1,j) >= 0 => Mi, else => -1
+ *              Volume: (Mi represents volume[i])       2. induction: from 0 to V, f(i,j) = max(f(i,j),f(i,j-Mi) - 1)
+ *              0   1   2   3   4 .. M1 .. V              0   1   2   3 .. M1 .. V
+ *     item:  0 0  -1  -1  -1  -1    -1   -1
+ *            1 M1 -1  -1  -1  -1    -1   -1 (initial) => M1 -1  -1  -1 . M1-1 ...
+ *            2
+ *            3
+ *            .
+ *            .
+ *            .
+ *
  *
  *      from this follow-up, only consider case 2, for case 1, only the initialization is different
  */
@@ -44,5 +60,25 @@ public class MultiplePack {
             }
         }
         return res[V];
+    }
+    // feasibiliti problem
+    public boolean multiplePackFeasible(int[] volume, int[] amount, int V) {
+        int[] res = new int[V + 1];
+        Arrays.fill(res, -1);
+        res[0] = 0;
+        for (int j = 1; j < volume.length; j++) {
+            int[] initial = new int[V + 1];
+            for(int i = 0; i <= V; i++) {
+                if(res[i] >= 0) {
+                    initial[i] = amount[j];
+                } else {
+                    initial[i] = -1;
+                }
+            }
+            for(int i = 0; i <= V - volume[j]; i++) {
+                res[i + volume[j]] = Math.max(res[i] - 1, initial[i + volume[j]]);
+            }
+        }
+        return res[V] == -1 ? false : true;
     }
 }
