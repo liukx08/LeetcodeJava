@@ -18,25 +18,24 @@ public class InsertInterval_57 {
         }
     }
 
+
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-        public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-            List<Interval> res = new ArrayList<>();
-            int i = 0;
-            // start > end, no overlap
-            while(i < intervals.size() && newInterval.start > intervals.get(i).end) {
-                res.add(intervals.get(i++));
-            }
-            // starting to overlap, end >= start, still overlap, merge one by one
-            while(i < intervals.size() && newInterval.end >= intervals.get(i).start) {
-                newInterval = new Interval(Math.min(newInterval.start, intervals.get(i).start), Math.max(newInterval.end, intervals.get(i).end));
-                i++;
-            }
-            res.add(newInterval);
-            // add remained interval
-            while(i < intervals.size()) {
-                res.add(intervals.get(i++));
-            }
-            return res;
+        List<Interval> res = new ArrayList<>();
+        int i = 0;
+        // start > end, no overlap
+        while(i < intervals.size() && newInterval.start > intervals.get(i).end) {
+            res.add(intervals.get(i++));
         }
+        // starting to overlap, end >= start, still overlap, merge one by one
+        while(i < intervals.size() && newInterval.end >= intervals.get(i).start) {
+            newInterval = new Interval(Math.min(newInterval.start, intervals.get(i).start), Math.max(newInterval.end, intervals.get(i).end));
+            i++;
+        }
+        res.add(newInterval);
+        // add remained interval
+        while(i < intervals.size()) {
+            res.add(intervals.get(i++));
+        }
+        return res;
     }
 }
