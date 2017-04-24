@@ -1,14 +1,12 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by liukx08 on 4/24/2017.
  *
  *      This problem is similar to LFUCache.
  *      1. The value works like frequency in LFUCache.
- *      2. When getMax/MinKey, any key is OK. Thus LinkedHashMap is not necessary; HashSet is enough.
+ *      2. When getMax/MinKey, any key is OK. Thus LinkedHashMap is not necessary;
+ *      LinkedHashSet (ensure iterator() in O(1)) is enough.
  *      3. Need a tail Node to get the max value in O(1).
  *
  */
@@ -26,7 +24,7 @@ public class AllOoneDataStructure_432 {
         // store keys
         public Set<String> keys;
         public Node(int val) {
-            keys = new HashSet<>();
+            keys = new LinkedHashSet<>();
             this.val = val;
         }
     }
