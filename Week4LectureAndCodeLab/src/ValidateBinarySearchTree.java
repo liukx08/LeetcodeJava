@@ -1,3 +1,5 @@
+import sun.reflect.generics.tree.Tree;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.concurrent.*;
@@ -147,6 +149,38 @@ public class ValidateBinarySearchTree {
         return false;
     }
 
+    public class ForkJoinTraversalTask extends RecursiveTask<Boolean> {
+        TreeNode root;
+        long minVal;
+        long maxVal;
+
+        public ForkJoinTraversalTask(TreeNode root, long minVal, long maxVal) {
+            this.root = root;
+            this.minVal = minVal;
+            this.maxVal = maxVal;
+        }
+
+        @Override
+        public Boolean compute() {
+            if(root == null) {
+                return true;
+            }
+            try {
+                if(root.val >= maxVal || root.val <= minVal) {
+                    return false;
+                }
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ForkJoinTraversalTask left = new ForkJoinTraversalTask(root.left, minVal, root.val);
+            ForkJoinTraversalTask right = new ForkJoinTraversalTask(root.right, root.val, maxVal);
+            left.fork();
+            right.fork();
+            return left.join() && right.join();
+        }
+    }
+
     public static void main(String[] args) {
         int[] nums = new int[511];
         for(int i = 0; i < 511; i++) {
@@ -161,8 +195,11 @@ public class ValidateBinarySearchTree {
         long endS = System.currentTimeMillis();
         System.out.println(test.isValidBST(root));
         long endP = System.currentTimeMillis();
+        System.out.println(test.new ForkJoinTraversalTask(root, Long.MIN_VALUE, Long.MAX_VALUE).compute());
+        long endF = System.currentTimeMillis();
         System.out.println("");
         System.out.println("Serial Execution Time: " + (endS - start));
         System.out.println("Parallel Execution Time: " + (endP - endS));
+        System.out.println("Parallel (Fork/Join) Execution Time: " + (endF - endP));
     }
 }
