@@ -42,6 +42,5 @@ public class BinaryWatch_401 {
     public static void main(String[] args) {
         BinaryWatch_401 test = new BinaryWatch_401();
         test.readBinaryWatch(0);
-        int m = 0;
     }
 }
