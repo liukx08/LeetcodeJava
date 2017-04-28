@@ -18,9 +18,11 @@ public class Heaters {
         int idxHouse = 0, idxHeater = 0;
         int radius = 0;
         while(idxHouse < houses.length) {
+            // closer to next heater, move index of heater
             while(idxHeater < heaters.length - 1 && houses[idxHouse] - heaters[idxHeater] > heaters[idxHeater + 1] - houses[idxHouse]) {
                 idxHeater++;
             }
+            // find the closest heater, update radius
             radius = Math.max(radius, Math.abs(houses[idxHouse++] - heaters[idxHeater]));
         }
         return radius;
