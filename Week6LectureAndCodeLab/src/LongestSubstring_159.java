@@ -7,6 +7,39 @@ import java.util.Map;
  *
  */
 public class LongestSubstring_159 {
+    // use variable
+    public int lengthOfLongestSubstring(String s) {
+        if(s == null) {
+            return 0;
+        }
+        if(s.length() < 3) {
+            return s.length();
+        }
+        char[] str = s.toCharArray();
+        // track the two characters in the substring
+        char first = str[0], second = str[0];
+        // second len is the length of rightmost second characters substring
+        int currLen = 1, secondLen = 1, maxLen = 1;
+        for(int i = 1; i < str.length; i++) {
+            if(str[i] != first && str[i] != second && first != second) {
+                maxLen = Math.max(maxLen, currLen);
+                currLen = secondLen + 1;
+                secondLen = 1;
+                first = second;
+                second = str[i];
+            } else if (str[i] != second) {
+                currLen++;
+                secondLen = 1;
+                first = second;
+                second = str[i];
+            } else {
+                currLen++;
+                secondLen++;
+            }
+        }
+        return Math.max(maxLen, currLen);
+    }
+    // use hashmap
     public int lengthOfLongestSubstringTwoDistinct(String s) {
         if(s == null) {
             return 0;
