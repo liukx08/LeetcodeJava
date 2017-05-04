@@ -13,11 +13,9 @@ public class InOrderMorrisTraversal {
             this.val = val;
         }
     }
+
     public List<Integer> inOrderMorrisTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        if (root == null) {
-            return res;
-        }
         TreeNode curr = root, prev = null;
         while(curr != null) {
             if(curr.left == null) {
