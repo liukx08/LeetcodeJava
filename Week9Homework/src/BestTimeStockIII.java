@@ -1,7 +1,7 @@
 /**
  * Created by liukx08 on 5/22/2017.
  */
-public class BestTimeIII {
+public class BestTimeStockIII {
     public int maxProfit(int[] prices) {
         if(prices == null || prices.length < 2) {
             return 0;
